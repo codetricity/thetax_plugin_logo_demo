@@ -5,10 +5,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:http/http.dart' as http;
 
+bool cameraIsClosed = false;
+
 class HomeScreen extends StatelessWidget {
   const HomeScreen({
-    Key? key,
-  }) : super(key: key);
+    super.key,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -45,7 +47,7 @@ class HomeScreen extends StatelessWidget {
         child: TakePictureButton(),
       ),
       const Padding(
-        padding: const EdgeInsets.all(12.0),
+        padding: EdgeInsets.all(12.0),
         child: ReturnCameraControlButton(),
       )
     ]);
@@ -54,8 +56,53 @@ class HomeScreen extends StatelessWidget {
 
 class TakePictureButton extends StatelessWidget {
   const TakePictureButton({
-    Key? key,
-  }) : super(key: key);
+    super.key,
+  });
+
+  void _closeDefaultCamera() {
+    const intent = AndroidIntent(
+      action: 'com.theta360.plugin.ACTION_PLUGIN_WEBAPI_CAMERA_OPEN',
+    );
+    intent.sendBroadcast();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.only(top: 20.0),
+      child: ElevatedButton(
+        onPressed: () async {
+          if (!cameraIsClosed) {
+            _closeDefaultCamera();
+            await Future.delayed(const Duration(milliseconds: 1000));
+            cameraIsClosed = true;
+          }
+          var body = {
+            'name': 'camera.takePicture',
+          };
+          var response = await http.post(
+              Uri.parse('http://localhost:8080/osc/commands/execute'),
+              body: jsonEncode(body),
+              headers: {'Content-Type': 'application/json;charset=utf-8'});
+          debugPrint('theta_debug: status code = ${response.statusCode}');
+          debugPrint('theta_debug: body = ${response.body}');
+        },
+        child: const Padding(
+          padding: EdgeInsets.all(12.0),
+          child: Text(
+            'take picture',
+            style: TextStyle(fontSize: 40),
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+class CloseCameraButton extends StatelessWidget {
+  const CloseCameraButton({
+    super.key,
+  });
   void _closeDefaultCamera() {
     const intent = AndroidIntent(
       action: 'com.theta360.plugin.ACTION_PLUGIN_WEBAPI_CAMERA_OPEN',
@@ -70,20 +117,12 @@ class TakePictureButton extends StatelessWidget {
       child: ElevatedButton(
         onPressed: () async {
           _closeDefaultCamera();
-          Future.delayed(Duration(milliseconds: 1000));
-          var body = {
-            'name': 'camera.takePicture',
-          };
-          var response = await http.post(
-              Uri.parse('http://localhost:8080/osc/commands/execute'),
-              body: jsonEncode(body),
-              headers: {'Content-Type': 'application/json;charset=utf-8'});
-          print(response.body);
+          await Future.delayed(const Duration(milliseconds: 2000));
         },
         child: const Padding(
           padding: EdgeInsets.all(12.0),
           child: Text(
-            'take picture',
+            'close camera',
             style: TextStyle(fontSize: 40),
           ),
         ),
@@ -94,8 +133,8 @@ class TakePictureButton extends StatelessWidget {
 
 class ReturnCameraControlButton extends StatelessWidget {
   const ReturnCameraControlButton({
-    Key? key,
-  }) : super(key: key);
+    super.key,
+  });
   void _returnCameraComtrol() {
     const intent = AndroidIntent(
       action: 'com.theta360.plugin.ACTION_PLUGIN_WEBAPI_CAMERA_CLOSE',

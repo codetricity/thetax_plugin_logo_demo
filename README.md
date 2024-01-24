@@ -4,8 +4,6 @@
 
 [video demo](https://youtu.be/F5LBPCAcKA8?feature=shared)
 
-
-
 [Official plugin development information from RICOH](https://github.com/ricohapi/theta-api-specs/tree/main/ricoh-theta-plugin)
 
 ## Overview
@@ -14,9 +12,8 @@ This is a demonstration of the API functionality of the RICOH THETA X plugin tec
 
 ## limitations of demo
 
-The code is not intended as a reference.  The main goal was to show that the camera LCD was usable with a plugin.  Refer to the API documentation for how to stop the plugin and revert back to the RICOH camera.  The plugin needs to be shutdown by turning off the camera in this minimal example.
-
-Please read [Notifying Completion of Plugin for information on stopping the plugin](https://github.com/ricohapi/theta-api-specs/blob/main/ricoh-theta-plugin/broadcast-intent.md#notifying-completion-of-plugin).
+The code is not intended as a reference.  The main goal was to show that the camera LCD was usable with a plugin. To close the internal camera and open the camera for the plugin to use,
+the application uses a simple delay.  When take picture is pressed, there is a delay of several seconds.
 
 ## debug plugin with adb connection over USB or Ethernet
 
@@ -54,6 +51,10 @@ Enable logcat
 
 `adb shell setprop persist.log.tag 0`
 
-Diable logcat
+Disable logcat
 
 `adb shell setprop persist.log.tag A`
+
+View logcat
+
+`adb logcat | grep theta_debug`

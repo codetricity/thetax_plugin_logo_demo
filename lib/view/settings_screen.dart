@@ -38,6 +38,10 @@ class _SettingsScreenState extends State<SettingsScreen> {
                   body: jsonEncode(body),
                   headers: {'Content-Type': 'application/json;charset=utf-8'});
               developer.log(response.body, name: 'oppkey');
+              setState(() {
+                responseText = response.body;
+                debugPrint('theta_debug: $responseText');
+              });
             },
             child: const Padding(
               padding: EdgeInsets.all(8.0),
@@ -60,7 +64,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
 
               setState(() {
                 responseText = response.body;
-                print(responseText);
+                debugPrint('theta_debug: $responseText');
               });
             },
             child: const Padding(
@@ -79,7 +83,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                 Navigator.pop(context);
               },
               child: const Padding(
-                padding: const EdgeInsets.all(20.0),
+                padding: EdgeInsets.all(20.0),
                 child: Text(
                   'return',
                   style: TextStyle(fontSize: 40),
