@@ -10,10 +10,21 @@
 
 This is a demonstration of the API functionality of the RICOH THETA X plugin technology. The demo was made for a community video, not as a developer reference.  
 
+Features shown:
+
+* logo display
+* LCD scroll
+* move to next screen
+* take picture
+* set option
+* access external API site
+* return control to THETA internal app
+
 ## limitations of demo
 
-The code is not intended as a reference.  The main goal was to show that the camera LCD was usable with a plugin. To close the internal camera and open the camera for the plugin to use,
-the application uses a simple delay.  When take picture is pressed, there is a delay of several seconds.
+The code is not intended as a reference.  The main goal was to show that the camera LCD was usable with a plugin. When take picture is pressed, there is a delay of several seconds.
+
+
 
 ## debug plugin with adb connection over USB or Ethernet
 
