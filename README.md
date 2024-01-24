@@ -43,3 +43,17 @@ List of devices attached
 VS Code works with adb over Ethernet.
 
 ![adb working](readme_assets/adb_debug.png)
+
+---
+
+Request permissions
+
+`adb shell am start -a android.settings.SETTINGS`
+
+Enable logcat
+
+`adb shell setprop persist.log.tag 0`
+
+Diable logcat
+
+`adb shell setprop persist.log.tag A`
