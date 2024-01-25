@@ -6,6 +6,8 @@
 
 [Official plugin development information from RICOH](https://github.com/ricohapi/theta-api-specs/tree/main/ricoh-theta-plugin)
 
+[build tutorial](https://youtu.be/KjVSrGhWvlo?feature=shared)
+
 ## Overview
 
 This is a demonstration of the API functionality of the RICOH THETA X plugin technology. The demo was made for a community video, not as a developer reference.  
