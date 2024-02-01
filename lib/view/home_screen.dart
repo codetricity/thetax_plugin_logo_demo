@@ -59,11 +59,11 @@ class TakePictureButton extends StatelessWidget {
     super.key,
   });
 
-  void _closeDefaultCamera() {
+  Future<void> _closeDefaultCamera() async {
     const intent = AndroidIntent(
       action: 'com.theta360.plugin.ACTION_PLUGIN_WEBAPI_CAMERA_OPEN',
     );
-    intent.sendBroadcast();
+    await intent.sendBroadcast();
   }
 
   @override
@@ -73,7 +73,7 @@ class TakePictureButton extends StatelessWidget {
       child: ElevatedButton(
         onPressed: () async {
           if (!cameraIsClosed) {
-            _closeDefaultCamera();
+            await _closeDefaultCamera();
             await Future.delayed(const Duration(milliseconds: 1000));
             cameraIsClosed = true;
           }
@@ -103,11 +103,11 @@ class CloseCameraButton extends StatelessWidget {
   const CloseCameraButton({
     super.key,
   });
-  void _closeDefaultCamera() {
+  Future<void> _closeDefaultCamera() async {
     const intent = AndroidIntent(
       action: 'com.theta360.plugin.ACTION_PLUGIN_WEBAPI_CAMERA_OPEN',
     );
-    intent.sendBroadcast();
+    await intent.sendBroadcast();
   }
 
   @override
@@ -116,7 +116,7 @@ class CloseCameraButton extends StatelessWidget {
       padding: const EdgeInsets.only(top: 20.0),
       child: ElevatedButton(
         onPressed: () async {
-          _closeDefaultCamera();
+          await _closeDefaultCamera();
           await Future.delayed(const Duration(milliseconds: 2000));
         },
         child: const Padding(
