@@ -18,7 +18,7 @@ class HomeScreen extends StatelessWidget {
       Padding(
           padding: const EdgeInsets.only(top: 100),
           child: OutlinedButton(
-            child: Image.asset('assets/images/oppkey_atk.png'),
+            child: Image.asset('assets/images/logo.png'),
             onPressed: () {},
           )),
       TextButton(
